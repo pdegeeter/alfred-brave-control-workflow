@@ -187,7 +187,7 @@ pub fn tab_items(tabs: Vec<Tab>) -> Vec<Item> {
         .collect()
 }
 
-/// `bhi`: one item per history entry.
+/// `bwh`: one item per history entry.
 pub fn history_items(entries: Vec<Entry>, show_profile: bool) -> Vec<Item> {
     if entries.is_empty() {
         return vec![error_item(
@@ -257,7 +257,7 @@ pub fn copy_current_items(tab: Option<Tab>) -> Vec<Item> {
     vec![item]
 }
 
-/// `btp`: reopen the current tab in a private window.
+/// `bwi`: reopen the current tab in a private window.
 pub fn private_current_items(tab: Option<Tab>) -> Vec<Item> {
     let Some(tab) = tab else {
         return vec![not_running_item()];

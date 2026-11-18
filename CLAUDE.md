@@ -19,7 +19,7 @@ on the Safari Control workflow. A single binary, `alfred-brave`, backs every
 object of the Alfred graph:
 
 - Six **Script Filters**, one per keyword: `window` (`bw`), `profiles` (`bwp`),
-  `tabs` (`bwt`), `history` (`bhi`), `current` (`bwc`), `private-tab` (`btp`).
+  `tabs` (`bwt`), `history` (`bwh`), `current` (`bwc`), `private-tab` (`bwi`).
   They print Alfred JSON.
 - One **Run Script**, `alfred-brave run <arg>`, connected to every script filter
   for every modifier used. `arg` is an encoded `action::Action`
@@ -85,8 +85,10 @@ suite runs offline. Keep new logic pure and route any new spawn through it.
 - **No `uid` on Alfred items** — Alfred would re-sort them. Filtering and
   ordering are done in Rust (`alfredfiltersresults = false`).
 - **Script filters never hard-fail**: errors become an invalid Alfred item.
-- **Keywords are fixed** (`bw`, `bwp`, `bwt`, `bhi`, `bwc`, `btp`); the `edit`
+- **Keywords are fixed** (`bw`, `bwp`, `bwt`, `bwh`, `bwc`, `bwi`); the `edit`
   action reopens Alfred on `bw <url>` (`action::WINDOW_KEYWORD`).
+  `tests/plist_test.rs` pins the keyword → subcommand map and the modifier
+  connections: update it with any keyword or modifier change.
 - **Editing `workflow/info.plist`**: if you edit the workflow in Alfred's UI
   while symlinked, copy the updated `info.plist` back into `workflow/` before
   committing, and validate with `plutil -lint workflow/info.plist`. The binary

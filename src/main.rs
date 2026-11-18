@@ -4,9 +4,9 @@
 //!   * `window [query]`   — script filter `bw`: new window(s), URL or search.
 //!   * `profiles [query]` — script filter `bwp`: Brave profiles.
 //!   * `tabs [query]`     — script filter `bwt`: open tabs.
-//!   * `history [query]`  — script filter `bhi`: history of every profile.
+//!   * `history [query]`  — script filter `bwh`: history of every profile.
 //!   * `current`          — script filter `bwc`: copy the current tab URL.
-//!   * `private-tab`      — script filter `btp`: current tab → private window.
+//!   * `private-tab`      — script filter `bwi`: current tab → private window.
 //!   * `run <arg>`        — Run Script action: perform the selected item.
 
 use std::env;

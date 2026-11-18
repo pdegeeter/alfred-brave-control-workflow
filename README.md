@@ -50,7 +50,7 @@ Lists every open tab (front window first); search by title or URL.
 - <kbd>⌥</kbd><kbd>↩</kbd> edit the URL (reopens Alfred on `bw <url>`)
 - <kbd>⌃</kbd><kbd>↩</kbd> close every tab showing this URL
 
-### History — `bhi`
+### History — `bwh`
 
 Searches the browsing history of **every** profile by title or URL, most
 recent visit first. The profile is shown when you have more than one.
@@ -67,7 +67,7 @@ Copies the URL of the current tab.
 
 - <kbd>⇧</kbd><kbd>⌘</kbd><kbd>↩</kbd> copy it as a Markdown link
 
-### Current tab in private — `btp`
+### Current tab in private — `bwi`
 
 Reopens the current tab in a new private window.
 

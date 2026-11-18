@@ -58,7 +58,7 @@ B=./target/debug/alfred-brave
 $B window "github.com/rust-lang" | python3 -m json.tool   # bw
 $B profiles | python3 -m json.tool                        # bwp
 $B tabs rust | python3 -m json.tool                       # bwt
-$B history "rust docs" | python3 -m json.tool             # bhi
+$B history "rust docs" | python3 -m json.tool             # bwh
 $B current | python3 -m json.tool                         # bwc
 
 # Actions take the `arg` of an item (see docs/architecture.md):
@@ -85,6 +85,7 @@ without Brave.
 | `tests/history_test.rs`  | SQL building and escaping, `immutable` URI, Chromium timestamps, row parsing, cross-profile merge, partial failures. |
 | `tests/action_test.rs`   | `arg` round-trip of every action, invalid args, execution sequences (clipboard, Alfred search, move to private ordering). |
 | `tests/alfred_test.rs`   | JSON shape of every item and modifier, empty states, decodability of every modifier `arg`. |
+| `tests/plist_test.rs`    | `workflow/info.plist`: every keyword (`bw*`) and the subcommand it runs, every modifier connected to the action, every keyword in the workflow readme (uses macOS `plutil`). |
 
 ## Project layout
 

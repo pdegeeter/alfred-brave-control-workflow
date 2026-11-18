@@ -513,7 +513,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>bhi</string>
+				<string>bwh</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -611,7 +611,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>btp</string>
+				<string>bwi</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -695,9 +695,9 @@
 - bw — new window (⌥ blank tab) · bw xN — N windows · bw url|search — new tab in the current window (⌥ new window, ⌘ private window)
 - bwp — open a window in one of your Brave profiles (⌘ with the current tab)
 - bwt — switch to an open tab (⌘ copy URL, ⇧⌘ Markdown, ⌥ edit URL, ⌃ close tabs with this URL)
-- bhi — search the history of every profile (⌘ copy URL, ⇧⌘ Markdown, ⌥ edit URL)
+- bwh — search the history of every profile (⌘ copy URL, ⇧⌘ Markdown, ⌥ edit URL)
 - bwc — copy the current tab URL (⇧⌘ Markdown)
-- btp — reopen the current tab in a private window (⌘ also close it)
+- bwi — reopen the current tab in a private window (⌘ also close it)
 
 The first use asks macOS to let Alfred control Brave Browser (Automation permission).</string>
 	<key>uidata</key>
