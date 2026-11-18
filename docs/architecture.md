@@ -10,9 +10,9 @@ object in the Alfred workflow graph:
 | `alfred-brave window [query]`  | Script Filter                   | `bw`    | Describe the window(s), URL or search the query asks for (URL/search: ↩ tab in the current window, ⌥ new window). |
 | `alfred-brave profiles [query]`| Script Filter                   | `bwp`   | List Brave profiles from `Local State`. |
 | `alfred-brave tabs [query]`    | Script Filter                   | `bwt`   | List open tabs, filtered by the query. |
-| `alfred-brave history [query]` | Script Filter                   | `bhi`   | Search the history of every profile. |
+| `alfred-brave history [query]` | Script Filter                   | `bwh`   | Search the history of every profile. |
 | `alfred-brave current`         | Script Filter                   | `bwc`   | Offer to copy the current tab URL. |
-| `alfred-brave private-tab`     | Script Filter                   | `btp`   | Offer to reopen the current tab privately. |
+| `alfred-brave private-tab`     | Script Filter                   | `bwi`   | Offer to reopen the current tab privately. |
 | `alfred-brave run <arg>`       | Run Script (`action.script`)    | —       | Decode the selected item's `arg` and perform it. |
 
 Every script filter is connected to the single Run Script, itself connected to
@@ -70,7 +70,7 @@ sequenceDiagram
     A->>B: run "focus 10:11"
     B->>J: focus tab script (argv 10 11)
 
-    U->>A: type "bhi docs"
+    U->>A: type "bwh docs"
     A->>B: history "docs"
     loop each profile with a History database
         B->>S: sqlite3 -readonly -json file:…/History?immutable=1 "SELECT … LIKE '%docs%' …"
