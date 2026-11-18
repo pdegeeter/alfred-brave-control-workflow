@@ -261,18 +261,23 @@ pub fn new_tab(runner: &dyn CommandRunner, url: &str) -> Result<()> {
     run_jxa(runner, NEW_TAB_SCRIPT, &[url]).map(|_| ())
 }
 
-/// Open a new window in the profile stored in `profile_dir` (e.g. `Default`,
-/// `Profile 1`), optionally on `url`.
+/// Open something in the profile stored in `profile_dir` (e.g. `Default`,
+/// `Profile 1`):
+///
+/// - with a `url`, in a new tab of that profile's current window (Brave only
+///   creates a window when the profile has none);
+/// - without one, in a new blank window of that profile.
 pub fn open_in_profile(
     runner: &dyn CommandRunner,
     profile_dir: &str,
     url: Option<&str>,
 ) -> Result<()> {
     let profile_flag = format!("--profile-directory={profile_dir}");
-    let mut args = vec!["-na", APP_NAME, "--args", &profile_flag, "--new-window"];
+    let mut args = vec!["-na", APP_NAME, "--args", &profile_flag];
 
-    if let Some(url) = url {
-        args.push(url);
+    match url {
+        Some(url) => args.push(url),
+        None => args.push("--new-window"),
     }
 
     runner.run(OPEN, &args).map(|_| ())

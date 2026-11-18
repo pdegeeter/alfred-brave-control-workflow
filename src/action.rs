@@ -35,7 +35,7 @@ pub enum Action {
     Tab { url: String },
     /// New window in a profile.
     Profile { dir: String },
-    /// New window in a profile, on the URL of the current tab.
+    /// Open the URL of the current tab in a profile (new tab of its window).
     ProfileWithCurrentTab { dir: String },
     /// Select a tab and raise its window.
     Focus { window_id: String, tab_id: String },
@@ -47,7 +47,7 @@ pub enum Action {
     Edit { url: String },
     /// Close every tab showing this URL.
     CloseUrl { url: String },
-    /// Open a history entry in a new window of its profile.
+    /// Open a history entry in a new tab of its profile's current window.
     OpenInProfile { url: String, dir: String },
     /// Reopen a tab in a private window and close the original.
     MoveToPrivate {
