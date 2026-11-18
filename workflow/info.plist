@@ -384,7 +384,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>New window, URL or search · bw x3 for 3 windows</string>
+				<string>New window · URL or search in the current window · bw x3 for 3 windows</string>
 				<key>title</key>
 				<string>Open a Brave window</string>
 				<key>type</key>
@@ -692,7 +692,7 @@
 	<key>readme</key>
 	<string>Control Brave Browser from Alfred.
 
-- bw [url | search | xN] — new window (⌘ private, ⌥ new tab)
+- bw — new window (⌥ blank tab) · bw xN — N windows · bw url|search — new tab in the current window (⌥ new window, ⌘ private window)
 - bwp — open a window in one of your Brave profiles (⌘ with the current tab)
 - bwt — switch to an open tab (⌘ copy URL, ⇧⌘ Markdown, ⌥ edit URL, ⌃ close tabs with this URL)
 - bhi — search the history of every profile (⌘ copy URL, ⇧⌘ Markdown, ⌥ edit URL)

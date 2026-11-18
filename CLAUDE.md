@@ -59,8 +59,9 @@ suite runs offline. Keep new logic pure and route any new spawn through it.
 - `brave.rs` — fixed JXA scripts (inputs via `argv`, never interpolated) for
   listing tabs, the current tab, focus, close, new window/tab. Listing scripts
   return `null` instead of launching Brave when it is not running. Profiles are
-  opened with `open -na "Brave Browser" --args --profile-directory=<dir>
-  --new-window [url]` (not scriptable through AppleScript).
+  opened with `open -na "Brave Browser" --args --profile-directory=<dir>`
+  (not scriptable through AppleScript): followed by a URL, it opens a new tab
+  in that profile's current window; followed by `--new-window`, a blank window.
 - `profiles.rs` — parses `profile.info_cache` from Brave's `Local State`,
   ordered by `active_time`. Missing/malformed file ⇒ no profile, never an error.
 - `history.rs` — per profile, `sqlite3 -readonly -json

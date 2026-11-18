@@ -7,7 +7,7 @@ object in the Alfred workflow graph:
 
 | Subcommand                     | Alfred object                   | Keyword | Responsibility |
 | ------------------------------ | ------------------------------- | ------- | -------------- |
-| `alfred-brave window [query]`  | Script Filter                   | `bw`    | Describe the window(s), URL or search the query asks for. |
+| `alfred-brave window [query]`  | Script Filter                   | `bw`    | Describe the window(s), URL or search the query asks for (URL/search: ↩ tab in the current window, ⌥ new window). |
 | `alfred-brave profiles [query]`| Script Filter                   | `bwp`   | List Brave profiles from `Local State`. |
 | `alfred-brave tabs [query]`    | Script Filter                   | `bwt`   | List open tabs, filtered by the query. |
 | `alfred-brave history [query]` | Script Filter                   | `bhi`   | Search the history of every profile. |
@@ -33,13 +33,13 @@ with `action::execute`.
 | `private`      | `[url]`                     | New private window. |
 | `tab`          | `<url>`                     | New tab in the front window. |
 | `profile`      | `<dir>`                     | New window in a profile. |
-| `profile-tab`  | `<dir>`                     | New window in a profile, on the current tab's URL. |
+| `profile-tab`  | `<dir>`                     | Current tab's URL in a new tab of the profile's current window. |
 | `focus`        | `<windowId>:<tabId>`        | Select the tab and raise its window. |
 | `copy`         | `<url>`                     | Copy the URL. |
 | `copy-md`      | `<url> <title>`             | Copy `[title](url)`. |
 | `edit`         | `<url>`                     | Reopen Alfred on `bw <url>`. |
 | `close-url`    | `<url>`                     | Close every tab showing that URL. |
-| `open`         | `<url> <dir>`               | Open a history entry in its profile. |
+| `open`         | `<url> <dir>`               | Open a history entry in a new tab of its profile's current window. |
 | `move-private` | `<windowId>:<tabId> <url>`  | Private window on `url`, then close the tab. |
 
 Fields are ordered so that only the last one may contain spaces (titles,
@@ -79,14 +79,17 @@ sequenceDiagram
     B-->>A: merged items (latest visit per URL)
     U->>A: Enter
     A->>B: run "open <url> <profile dir>"
-    B->>O: open -na "Brave Browser" --args --profile-directory=<dir> --new-window <url>
+    B->>O: open -na "Brave Browser" --args --profile-directory=<dir> <url>
 ```
 
 - **JXA scripts** (`src/brave.rs`) are fixed constants; inputs travel as
   `argv`, never interpolated into source. Listing scripts check
   `running()` first and print `null` instead of launching Brave.
-- **Profiles** cannot be targeted through AppleScript, so opening a window in a
-  profile goes through Brave's `--profile-directory` flag via `open -na`.
+- **Profiles** cannot be targeted through AppleScript, so opening in a profile
+  goes through Brave's `--profile-directory` flag via `open -na`. With a URL the
+  flag set has no `--new-window`: Brave opens a new tab in that profile's
+  current window (a window only if it has none). Without a URL, `--new-window`
+  opens a blank window.
 - **History**: Brave keeps each profile's `History` database locked. Opening it
   as an `immutable` SQLite URI with the system `sqlite3` avoids both the lock
   and a copy. The trade-off: visits not yet flushed to disk may be missing.

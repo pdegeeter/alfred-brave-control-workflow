@@ -44,11 +44,25 @@ fn search_item_names_the_query_and_opens_its_url() {
     let item = to_json(&items[0]);
 
     assert_eq!(item["title"], "Search Brave for “rust”");
-    assert_eq!(item["arg"], "window https://search.brave.com/search?q=rust");
+    // A URL or search lands in the current window; ⌥ opens a new one.
+    assert_eq!(item["arg"], "tab https://search.brave.com/search?q=rust");
+    assert_eq!(
+        item["mods"]["alt"]["arg"],
+        "window https://search.brave.com/search?q=rust"
+    );
     assert_eq!(
         item["mods"]["cmd"]["arg"],
         "private https://search.brave.com/search?q=rust"
     );
+}
+
+#[test]
+fn url_item_opens_in_the_current_window_by_default() {
+    let item = to_json(&alfred::window_items(&WindowRequest::Url("https://a.test".to_owned()))[0]);
+
+    assert_eq!(item["title"], "Open https://a.test");
+    assert_eq!(item["arg"], "tab https://a.test");
+    assert_eq!(item["mods"]["alt"]["arg"], "window https://a.test");
 }
 
 #[test]

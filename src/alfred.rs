@@ -79,13 +79,14 @@ pub fn window_items(request: &WindowRequest) -> Vec<Item> {
     vec![item]
 }
 
-/// Item opening `url` in a new window, a private window (⌘) or a tab (⌥).
+/// Item opening `url` in a new tab of the front window, a private window (⌘)
+/// or a new window (⌥).
 fn url_item(title: String, url: &str) -> Item {
     Item::new(title)
-        .subtitle("In a new window · ⌘ private window · ⌥ new tab")
+        .subtitle("In a new tab of the current window · ⌘ private window · ⌥ new window")
         .arg(
-            Action::Window {
-                url: Some(url.to_owned()),
+            Action::Tab {
+                url: url.to_owned(),
             }
             .to_arg(),
         )
@@ -98,9 +99,9 @@ fn url_item(title: String, url: &str) -> Item {
         ))
         .modifier(modifier(
             Key::Option,
-            "Open in a new tab of the front window",
-            &Action::Tab {
-                url: url.to_owned(),
+            "Open in a new window",
+            &Action::Window {
+                url: Some(url.to_owned()),
             },
         ))
 }

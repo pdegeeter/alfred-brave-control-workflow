@@ -106,23 +106,38 @@ fn close_tabs_with_url_returns_the_count() {
 }
 
 #[test]
-fn open_in_profile_uses_the_profile_directory_flag() {
+fn open_in_profile_with_a_url_opens_a_tab_in_the_current_window() {
     let runner = FakeRunner::new().with_success(OPEN, "");
 
     brave::open_in_profile(&runner, "Profile 1", Some("https://a.test")).unwrap();
-    brave::open_in_profile(&runner, "Default", None).unwrap();
 
-    let calls = runner.calls();
+    // No `--new-window`: Brave adds a tab to the profile's current window.
     assert_eq!(
-        calls[0].args,
+        runner.calls()[0].args,
         [
             "-na",
             APP_NAME,
             "--args",
             "--profile-directory=Profile 1",
-            "--new-window",
             "https://a.test"
         ]
     );
-    assert_eq!(calls[1].args.last().unwrap(), "--new-window");
+}
+
+#[test]
+fn open_in_profile_without_a_url_opens_a_blank_window() {
+    let runner = FakeRunner::new().with_success(OPEN, "");
+
+    brave::open_in_profile(&runner, "Default", None).unwrap();
+
+    assert_eq!(
+        runner.calls()[0].args,
+        [
+            "-na",
+            APP_NAME,
+            "--args",
+            "--profile-directory=Default",
+            "--new-window"
+        ]
+    );
 }
