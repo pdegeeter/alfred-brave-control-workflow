@@ -38,7 +38,7 @@ cargo clippy --all-targets -- -D warnings # lint; warnings are errors (CI gate)
 cargo fmt --all                           # format (CI checks with --check)
 
 ./scripts/build.sh            # sync plist version + build release + package .alfredworkflow
-./scripts/deploy.sh           # build + symlink workflow into Alfred (live dev)
+./scripts/deploy.sh           # build + update the installed workflow in place (imports it the first time)
 ./scripts/deploy.sh --import  # build + open the .alfredworkflow to import it
 
 # Exercise the binary directly (it speaks Alfred JSON on stdout):
@@ -89,11 +89,14 @@ suite runs offline. Keep new logic pure and route any new spawn through it.
   action reopens Alfred on `bw <url>` (`action::WINDOW_KEYWORD`).
   `tests/plist_test.rs` pins the keyword → subcommand map and the modifier
   connections: update it with any keyword or modifier change.
-- **Editing `workflow/info.plist`**: if you edit the workflow in Alfred's UI
-  while symlinked, copy the updated `info.plist` back into `workflow/` before
-  committing, and validate with `plutil -lint workflow/info.plist`. The binary
-  in `workflow/` is a build artifact (gitignored); `info.plist` and `icon.png`
-  are tracked.
+- **Deploying**: `scripts/deploy.sh` copies the build over the installed
+  workflow found by bundle id (never `powerpack link`: Alfred 6 turns symlinks
+  into stale copies and fails to re-import over an install).
+- **Editing `workflow/info.plist`**: if you edit the workflow in Alfred's UI,
+  copy the updated `info.plist` from the installed folder back into `workflow/`
+  before committing (the next deploy overwrites it), and validate with
+  `plutil -lint workflow/info.plist`. The binary in `workflow/` is a build
+  artifact (gitignored); `info.plist` and `icon.png` are tracked.
 - **Workflow icon**: `workflow/icon.png` is converted from Brave's app icon by
   `scripts/icon.sh` (`sips`). It is committed and not regenerated at build time.
 - **Protected `main`**: work via PRs only (enforced for admins). CI `test` and
